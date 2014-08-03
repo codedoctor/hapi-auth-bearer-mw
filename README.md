@@ -2,7 +2,7 @@
 
 HAPI plugin that supports bearer token security using our identity store.
 
-1. PLEASE NOTE THAT SIGNIFICANT PARTS OF THE CODE HAVE BEEN USED FROM ANOTHER NPM MODULE (google it, don't have the link handy)
+1. PLEASE NOTE THAT SIGNIFICANT PARTS OF THE CODE HAVE BEEN USED FROM ANOTHER NPM MODULE (hapi-auth-bearer by Jordan Stout)
 
 2. ALSO, THIS IS WORK IN PROGRESS
 
