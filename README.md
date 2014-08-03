@@ -1,3 +1,11 @@
+[![Build Status](https://travis-ci.org/codedoctor/hapi-auth-bearer-mw.svg?branch=master)](https://travis-ci.org/codedoctor/hapi-auth-bearer-mw)
+
+[![Coverage Status](https://img.shields.io/coveralls/codedoctor/hapi-auth-bearer-mw.svg)](https://coveralls.io/r/codedoctor/hapi-auth-bearer-mw)
+
+[![NPM Version](http://img.shields.io/npm/v/npm.svg)](https://www.npmjs.org/package/hapi-auth-bearer-mw)
+
+
+
 (C) 2014 Martin Wawrusch
 
 HAPI plugin that supports bearer token security using our identity store.
