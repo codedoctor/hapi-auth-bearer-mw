@@ -2,7 +2,10 @@
 [![Coverage Status](https://img.shields.io/coveralls/codedoctor/hapi-auth-bearer-mw.svg)](https://coveralls.io/r/codedoctor/hapi-auth-bearer-mw)
 [![NPM Version](http://img.shields.io/npm/v/hapi-auth-bearer-mw.svg)](https://www.npmjs.org/package/hapi-auth-bearer-mw)
 [![Dependency Status](https://gemnasium.com/codedoctor/hapi-auth-bearer-mw.svg)](https://gemnasium.com/codedoctor/hapi-auth-bearer-mw)
-
+[![NPM Downloads](http://img.shields.io/npm/dm/hapi-auth-bearer-mw.svg)](https://www.npmjs.org/package/hapi-auth-bearer-mw)
+[![Issues](http://img.shields.io/github/issues/codedoctor/.svg)](https://github.com/codedoctor/hapi-auth-bearer-mw/issues)
+[![HAPI 6.0](http://img.shields.io/badge/hapi-6.0-blue.svg)](http://hapijs.com)
+[![API Documentation](http://img.shields.io/badge/API-Documentation-ff69b4.svg)](http://coffeedoc.info/github/codedoctor/hapi-auth-bearer-mw)
 
 
 (C) 2014 Martin Wawrusch
