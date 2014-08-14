@@ -6,19 +6,22 @@ internals = {}
 
 module.exports.register = (plugin, options = {}, cb) ->
 
-  options = Hoek.applyToDefaults {clientId: null,accountId:null} , options
+  options = Hoek.applyToDefaults {clientId: null,_tenantId:null} , options
 
   internals.clientId = options.clientId
-  internals.accountId = options.accountId
+  internals._tenantId = options._tenantId
 
   Hoek.assert(internals.clientId, 'Missing required clientId property in hapi-auth-bearer-mw configuration');
-  Hoek.assert(internals.accountId, 'Missing required accountId property in hapi-auth-bearer-mw configuration');
+  Hoek.assert(internals._tenantId, 'Missing required _tenantId property in hapi-auth-bearer-mw configuration');
 
   
-  internals.identityStore = plugin.plugins['hapi-identity-store']
-  Hoek.assert internals.identityStore,"Could not access identity store. Make sure 'hapi-identity-store' is loaded as a plugin."
+  internals.hapiOauthStoreMultiTenant = plugin.plugins['hapi-oauth-store-multi-tenant']
+  Hoek.assert internals.hapiOauthStoreMultiTenant,"Could not access oauth store. Make sure 'hapi-oauth-store-multi-tenant' is loaded as a plugin."
 
-  internals.oauthAuth = -> internals.identityStore?.methods?.oauthAuth
+  internals.hapiUserStoreMultiTenant = plugin.plugins['hapi-user-store-multi-tenant']
+  Hoek.assert internals.hapiUserStoreMultiTenant,"Could not access user store. Make sure 'hapi-oauth-store-multi-tenant' is loaded as a plugin."
+
+  internals.oauthAuth = -> internals.hapiOauthStoreMultiTenant?.methods?.oauthAuth
   internals.users = -> internals.identityStore?.methods?.users
 
   Hoek.assert _.isFunction internals.oauthAuth, "No oauth auth accessible."

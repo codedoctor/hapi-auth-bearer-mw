@@ -28,7 +28,7 @@ HAPI plugin that supports bearer token security using our identity store.
 * [hapi-routes-roles](https://github.com/codedoctor/hapi-routes-roles)
 * [hapi-routes-status](https://github.com/codedoctor/hapi-routes-status)
 * [hapi-routes-users-authorizations](https://github.com/codedoctor/hapi-routes-users-authorizations)
-* [hapi-routes-users-oauth-management](https://github.com/codedoctor/hapi-routes-users-oauth-management)
+* [hapi-routes-oauth-management](https://github.com/codedoctor/hapi-routes-oauth-management)
 * [hapi-routes-users](https://github.com/codedoctor/hapi-routes-users)
 
 and additionally
