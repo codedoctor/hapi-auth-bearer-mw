@@ -1,6 +1,6 @@
 {
   "name": "hapi-auth-bearer-mw",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": false,
   "main": "lib/index.js",
   "repository": {
@@ -28,7 +28,7 @@
     "grunt-cli": "0.1.13",
     "grunt-contrib-coffee": "0.11.0",
     "grunt-contrib-watch": "0.6.1",
-    "grunt-codo" : "0.2.0", 
+    "grunt-codo": "0.2.0",
     "grunt-env": "0.4.1",
     "grunt-mocha-cov": "0.3.0",
     "grunt-mocha-test": "0.11.0",
