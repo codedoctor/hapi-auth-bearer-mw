@@ -86,15 +86,18 @@ internals.validateFunc = (secretOrToken, cb) ->
 internals.bearer = (server, options) ->
   scheme =
     authenticate: (request, reply) ->
-      #console.log "Checking authorization"
       req = request.raw.req
-      authorization = req.headers.authorization
-      return reply(boom.unauthorized(null, "Bearer"))  unless authorization
-      #console.log "authorization found #{authorization}"
+      
+      accessToken = request.query['access_token']
 
-      parts = authorization.split(/\s+/)
-      return reply(boom.badRequest("Bad HTTP authentication header format"))  if parts.length isnt 2
-      return reply(boom.unauthorized(null, "Bearer"))  if parts[0] and parts[0].toLowerCase() isnt "bearer"
+      unless accessToken
+        authorization = req.headers.authorization
+        return reply(boom.unauthorized(null, "Bearer"))  unless authorization
+        
+        parts = authorization.split(/\s+/)
+        return reply(boom.badRequest("Bad HTTP authentication header format"))  if parts.length isnt 2
+        return reply(boom.unauthorized(null, "Bearer"))  if parts[0] and parts[0].toLowerCase() isnt "bearer"
+        accessToken = parts[1]
 
       createCallback = (token) ->
         return (err, credentials) ->
@@ -116,7 +119,7 @@ internals.bearer = (server, options) ->
             credentials: credentials
 
 
-      internals.validateFunc parts[1], createCallback(parts[1])
+      internals.validateFunc accessToken, createCallback(accessToken)
 
   return scheme
 
