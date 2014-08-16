@@ -22,7 +22,7 @@ module.exports.register = (plugin, options = {}, cb) ->
   Hoek.assert internals.hapiUserStoreMultiTenant,"Could not access user store. Make sure 'hapi-oauth-store-multi-tenant' is loaded as a plugin."
 
   internals.oauthAuth = -> internals.hapiOauthStoreMultiTenant?.methods?.oauthAuth
-  internals.users = -> internals.identityStore?.methods?.users
+  internals.users = -> internals.hapiUserStoreMultiTenant?.methods?.users
 
   Hoek.assert _.isFunction internals.oauthAuth, "No oauth auth accessible."
   Hoek.assert _.isFunction internals.users, "No users accessible."
