@@ -48,6 +48,7 @@ internals.validateFunc = (secretOrToken, cb) ->
       isValid: !!infoResult.isValid
       isClientValid: !!infoResult.isClientValid
       scopes: infoResult.scopes
+      scope: infoResult.scopes
       expiresIn: infoResult.expiresIn
       token: secretOrToken #Important
 
