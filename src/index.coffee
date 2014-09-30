@@ -42,13 +42,16 @@ internals.validateFunc = (secretOrToken, cb) ->
     Hoek.assert infoResult.actor,"No actor present in token result"
     Hoek.assert infoResult.actor.actorId,"No actor id present in token result"
 
+    scopes = ['user-bearer-access']
+    scopes.push s for s in infoResult.scopes || []
+
     credentials = 
       id: infoResult.actor.actorId
       clientId: infoResult.clientId
       isValid: !!infoResult.isValid
       isClientValid: !!infoResult.isClientValid
-      scopes: infoResult.scopes
-      scope: infoResult.scopes
+      scopes: scopes
+      scope: scopes
       expiresIn: infoResult.expiresIn
       token: secretOrToken #Important
 
