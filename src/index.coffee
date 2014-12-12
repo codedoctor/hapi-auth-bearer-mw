@@ -54,12 +54,14 @@ internals.validateFunc = (secretOrToken, cb) ->
       scope: scopes
       expiresIn: infoResult.expiresIn
       token: secretOrToken #Important
+      roles: []
 
     internals.users().get credentials.id,{}, (err,user) ->
       return cb err if err
 
       credentials.name = user.username
       credentials.user = user
+      credentials.roles = user.roles if _.isArray(user.roles)
 
       cb null, credentials
     #console.log JSON.stringify(infoResult)
