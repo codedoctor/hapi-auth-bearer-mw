@@ -4,7 +4,7 @@ boom = require 'boom'
 
 internals = {}
 
-module.exports.register = (plugin, options = {}, cb) ->
+module.exports.register = (server, options = {}, cb) ->
 
   options = Hoek.applyToDefaults {clientId: null,_tenantId:null} , options
 
@@ -15,10 +15,10 @@ module.exports.register = (plugin, options = {}, cb) ->
   Hoek.assert(internals._tenantId, 'Missing required _tenantId property in hapi-auth-bearer-mw configuration');
 
 
-  internals.hapiOauthStoreMultiTenant = plugin.plugins['hapi-oauth-store-multi-tenant']
+  internals.hapiOauthStoreMultiTenant = server.plugins['hapi-oauth-store-multi-tenant']
   Hoek.assert internals.hapiOauthStoreMultiTenant,"Could not access oauth store. Make sure 'hapi-oauth-store-multi-tenant' is loaded as a plugin."
 
-  internals.hapiUserStoreMultiTenant = plugin.plugins['hapi-user-store-multi-tenant']
+  internals.hapiUserStoreMultiTenant = server.plugins['hapi-user-store-multi-tenant']
   Hoek.assert internals.hapiUserStoreMultiTenant,"Could not access user store. Make sure 'hapi-oauth-store-multi-tenant' is loaded as a plugin."
 
   internals.oauthAuth = -> internals.hapiOauthStoreMultiTenant?.methods?.oauthAuth
@@ -27,7 +27,7 @@ module.exports.register = (plugin, options = {}, cb) ->
   Hoek.assert _.isFunction internals.oauthAuth, "No oauth auth accessible."
   Hoek.assert _.isFunction internals.users, "No users accessible."
 
-  plugin.auth.scheme 'hapi-auth-bearer-mw', internals.bearer
+  server.auth.scheme 'hapi-auth-bearer-mw', internals.bearer
   cb()
 
 module.exports.register.attributes =
@@ -113,8 +113,7 @@ internals.bearer = (server, options) ->
             return reply(boom.unauthorized("Invalid token", "Bearer"),
               credentials: credentials
             )
-          reply null,
-            credentials: credentials
+          reply.continue { credentials: credentials }
 
 
       internals.validateFunc accessToken, createCallback(accessToken)

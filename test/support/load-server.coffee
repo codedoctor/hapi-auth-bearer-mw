@@ -12,14 +12,17 @@ loggingEnabled = false
 testUrl = 'mongodb://localhost/looksnearme-test'
 
 module.exports = loadServer = (cb) ->
-    server = new Hapi.Server 5675,"localhost",{}
+    server = new Hapi.Server()
+    server.connection
+      port: 5675
+      host: "localhost"
 
     pluginConf = [
-        plugin: hapiUserStoreMultiTenant
+        register: hapiUserStoreMultiTenant
       ,
-        plugin: hapiOauthStoreMultiTenant
+        register: hapiOauthStoreMultiTenant
       ,
-        plugin: index
+        register: index
         options: 
           clientId: "53af466e96ab7635384b71fa"
           _tenantId: "53af466e96ab7635384b71fb"
@@ -27,7 +30,7 @@ module.exports = loadServer = (cb) ->
 
     ]
 
-    server.pack.register pluginConf, (err) ->
+    server.register pluginConf, (err) ->
       return cb err if err
       server.auth.strategy 'default', 'hapi-auth-bearer-mw',  {}
       server.auth.default 'default'

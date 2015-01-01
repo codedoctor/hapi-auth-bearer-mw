@@ -1,11 +1,11 @@
 fixtures = require './fixtures'
 
 module.exports = (server,cb) ->
-  hapiUserStoreMultiTenant = server.pack.plugins['hapi-user-store-multi-tenant']
+  hapiUserStoreMultiTenant = server.plugins['hapi-user-store-multi-tenant']
   hapiUserStoreMultiTenant.methods.users.create fixtures.tenantId,fixtures.userA, null,(err,user) ->
     return cb err if err
 
-    hapiOauthStoreMultiTenant = server.pack.plugins['hapi-oauth-store-multi-tenant']
+    hapiOauthStoreMultiTenant = server.plugins['hapi-oauth-store-multi-tenant']
 
     hapiOauthStoreMultiTenant.methods.oauthApps.create fixtures.tenantId,{name: 'test'}, null, (err,app) ->
       return cb err if err
