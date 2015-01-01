@@ -5,6 +5,7 @@
 [![NPM Downloads](http://img.shields.io/npm/dm/hapi-auth-bearer-mw.svg)](https://www.npmjs.org/package/hapi-auth-bearer-mw)
 [![Issues](http://img.shields.io/github/issues/codedoctor/.svg)](https://github.com/codedoctor/hapi-auth-bearer-mw/issues)
 [![HAPI 6.0](http://img.shields.io/badge/hapi-6.0-blue.svg)](http://hapijs.com)
+[![HAPI 7.0](http://img.shields.io/badge/hapi-7.0-blue.svg)](http://hapijs.com)
 [![API Documentation](http://img.shields.io/badge/API-Documentation-ff69b4.svg)](http://coffeedoc.info/github/codedoctor/hapi-auth-bearer-mw)
 
 
@@ -17,6 +18,10 @@ HAPI plugin that supports bearer token security using our identity store.
 2. ALSO, THIS IS WORK IN PROGRESS
 
 3. BEARER TOKEN SECURITY IS NOT REALLY THAT SECURE - USE WITH CAUTION AT YOUR OWN RISK, AND KNOW WHAT YOU ARE DOING.
+
+## Versions
+1.3.2
+Requires the use of hapi-user-store-multi-tenant v1.1.1 or up.
 
 ## See also
 

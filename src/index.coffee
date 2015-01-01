@@ -14,7 +14,7 @@ module.exports.register = (plugin, options = {}, cb) ->
   Hoek.assert(internals.clientId, 'Missing required clientId property in hapi-auth-bearer-mw configuration');
   Hoek.assert(internals._tenantId, 'Missing required _tenantId property in hapi-auth-bearer-mw configuration');
 
-  
+
   internals.hapiOauthStoreMultiTenant = plugin.plugins['hapi-oauth-store-multi-tenant']
   Hoek.assert internals.hapiOauthStoreMultiTenant,"Could not access oauth store. Make sure 'hapi-oauth-store-multi-tenant' is loaded as a plugin."
 
@@ -46,47 +46,34 @@ internals.validateFunc = (secretOrToken, cb) ->
     scopes.push s for s in infoResult.scopes || []
 
     credentials = 
-      id: infoResult.actor.actorId
+      id: infoResult.actor.actorId.toString()
+      _id: infoResult.actor.actorId.toString()
       clientId: infoResult.clientId
       isValid: !!infoResult.isValid
       isClientValid: !!infoResult.isClientValid
+      isAnonymous: false
       scopes: scopes
       scope: scopes
       expiresIn: infoResult.expiresIn
       token: secretOrToken #Important
       roles: []
 
-    internals.users().get credentials.id,{}, (err,user) ->
+    internals.users().get credentials.id,{}, (err,userResult) ->
       return cb err if err
 
-      credentials.name = user.username
-      credentials.user = user
-      credentials.roles = user.roles if _.isArray(user.roles)
+      ###
+      If user is not found, we need to return an unauthorized error
+      ###
+      return cb null,null unless userResult
+
+      userResult = userResult.toObject() if _.isFunction(userResult.toObject)
+      userResult._id = userResult._id.toString()
+
+      credentials.name = userResult.username
+      credentials.user = userResult
+      credentials.roles = userResult.roles if _.isArray(userResult.roles)
 
       cb null, credentials
-    #console.log JSON.stringify(infoResult)
-
-    ###
-                if (!info) {
-                return cb(null, null);
-              }
-              info.isValid = !!(info.actor && info.actor.actorId && info.expiresIn);
-              if (info.isValid) {
-                user = {
-                  isServerToken: false,
-                  isActsAsActorId: false,
-                  username: info.actor.actorId,
-                  userId: info.actor.actorId,
-                  scopes: []
-                };
-                _.extend(user, info);
-                user.scopes.push('user');
-                return cb(null, user);
-              } else {
-                return cb(null, null);
-
-    ###
-
 
 
 internals.bearer = (server, options) ->
@@ -95,6 +82,7 @@ internals.bearer = (server, options) ->
       req = request.raw.req
       
       accessToken = request.query['access_token']
+
 
       unless accessToken
         authorization = req.headers.authorization
