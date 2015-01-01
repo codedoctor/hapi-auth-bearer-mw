@@ -38,7 +38,8 @@ module.exports = (grunt) ->
         analytics: false
       src: ['src/**/*.coffee']
 
-
+    release: {}
+    
     mochaTest:
       test:
         options:
