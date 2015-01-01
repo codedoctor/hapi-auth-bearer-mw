@@ -59,6 +59,10 @@ internals.validateFunc = (secretOrToken, cb) ->
       roles: []
 
     internals.users().get credentials.id,{}, (err,userResult) ->
+      console.log "========="
+      console.log JSON.stringify(userResult)
+      console.log "========="
+
       return cb err if err
 
       ###

@@ -11,9 +11,9 @@ module.exports = (server,cb) ->
       return cb err if err
       hapiOauthStoreMultiTenant.methods.oauthAuth.createOrReuseTokenForUserId fixtures.tenantId,user._id, app.clients[0].clientId, "",['scopeb'], null, (err, token) ->
         return cb err if err
-        console.log JSON.stringify(user)
-        console.log JSON.stringify(token)
 
-        # create a token now.
+        hapiUserStoreMultiTenant.methods.users.destroy fixtures.tenantId,user._id,null, (err) ->
+        return cb err if err 
+
 
         cb null, user, token

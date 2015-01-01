@@ -25,14 +25,13 @@ describe 'WHEN authenticating with a valid user', ->
           cb null
 
     describe 'authenticating with a user', ->
-      it 'should create a user if it does not exist', (cb) ->
+      it 'should set the credentials accordingly', (cb) ->
         options =
           method: "POST"
           url: "/test"
           headers: 
             "Authorization" : "Bearer " + goodToken.accessToken.toString()
 
-        console.log "INJECTING TOKEN: #{goodToken.accessToken.toString()}"
         server.inject options, (response) ->
           response.statusCode.should.equal 200    
           should.exist response.result
@@ -45,10 +44,12 @@ describe 'WHEN authenticating with a valid user', ->
           r.should.have.property "name", fixtures.username
           r.should.have.property("isClientValid", true).be.a.Boolean
 
-          r.should.have.property("scope").be.an.Array.lengthOf(1) # Depreciated
-          r.should.have.property("scopes").be.an.Array.lengthOf(1)
+          r.should.have.property("scope").be.an.Array.lengthOf(2) # Depreciated
+          r.should.have.property("scopes").be.an.Array.lengthOf(2)
           should.exist r.scopes[0]
           r.scopes[0].should.be.a.String.equal('user-bearer-access')
+          should.exist r.scopes[1]
+          r.scopes[1].should.be.a.String.equal('scopeb')
 
           r.should.have.property("roles").be.an.Array.lengthOf(3)
           should.exist r.roles[0]
